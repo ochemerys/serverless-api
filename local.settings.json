@@ -1,0 +1,9 @@
+{
+  "IsEncrypted": false,
+  "Values": {
+    "AzureWebJobsStorage": "",
+    "FUNCTIONS_WORKER_RUNTIME": "node",
+    "CosmosDbUrl": "mongodb://oleks-serverless-api:9hdvxgefU4oYQVUHXlQ6lzdlunFmVLq0X71hGt8zLXnoFIRCTfpT0nV9U3k21TlJ2pdFzBg9Qhy38F2mAS4HPA%3D%3D@oleks-serverless-api.documents.azure.com:10255/?ssl=true",
+    "CosmosDb": "admin"
+  }
+}
