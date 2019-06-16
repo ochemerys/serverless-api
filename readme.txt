@@ -1,3 +1,7 @@
+run by running debugger
 
-$ npm install mongodb --save
+install mongodb client to use in code
+    $ npm install mongodb --save
+
+
 
