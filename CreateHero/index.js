@@ -1,34 +1,19 @@
-const MongoClient = require('mongodb').MongoClient;
+const { createHero } = require('../shared/dbHeroes');
 
 module.exports = function (context, req) {
     context.log('JavaScript HTTP trigger function processed a request.');
 
-    MongoClient.connect(
-        process.env.CosmosDbUrl,
-        (err, client) => {
-            if(err) throw err;
-            console.log('Connected successfully');
-            const hero = ({id,name,saying} = req.body);
-
-            const db = client.db(process.env.CosmosDb);
-            db
-                .collection('Heroes')
-                .insertOne(
-                    {id: hero.id, name: hero.name, saying: hero.saying},
-                    (err, result) => {
-                        if(err) throw err;
-
-                        console.log('Hero is added successfully');
-                        context.res = {
-                            // status: 200, /* Defaults to 200 */
-                            body: hero
-                        };
-
-                        client.close();
-                        context.done();
-                    }
-                );
-        }
-    );
+    const hero = ({id,name,saying} = req.body);
+    createHero(hero).then(data => {
+        console.log('Hero is added successfully');
+        context.res = {
+            body: hero
+        };
+        context.done();
+    })
+    .catch(err => {
+        context.res.json({'error': err});
+        context.done();
+    });
 
 };

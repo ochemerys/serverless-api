@@ -22,5 +22,44 @@ module.exports = {
             
             clientClose(client);
         })))
+    ))()),
+
+    // create new hero
+    // parameter: a hero {id,name,saying}
+    createHero: async (hero) => (await (() => (
+        new Promise((resolve, reject) => (clientConnect().then(client => {
+            // create query
+            client
+                .db(dbName)
+                .collection(collectionName)
+                .insertOne(
+                    {id: hero.id, name: hero.name, saying: hero.saying},
+                    (err, result) => {
+                        err ? reject(err) : resolve(result);
+                });
+            
+            clientClose(client);
+        })))
+    ))()),
+
+    // update hero
+    // parameters:
+    //      heroId 
+    //      hero {id,name,saying}
+    updateHero: async (heroId, hero) => (await (() => (
+        new Promise((resolve, reject) => (clientConnect().then(client => {
+            // create query
+            client
+                .db(dbName)
+                .collection(collectionName)
+                .findOneAndUpdate(
+                    {id: heroId},
+                    {$set: {id: hero.id, name: hero.name, saying: hero.saying}},
+                    (err, result) => {
+                        err ? reject(err) : resolve(result);
+                    });
+            clientClose(client);
+        })))
     ))())
+
 };
