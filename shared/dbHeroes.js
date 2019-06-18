@@ -60,6 +60,24 @@ module.exports = {
                     });
             clientClose(client);
         })))
+    ))()),
+
+    // update hero
+    // parameters:
+    //      heroId 
+    deleteHero: async (heroId) => (await (() => (
+        new Promise((resolve, reject) => (clientConnect().then(client => {
+            // create query
+            client
+                .db(dbName)
+                .collection(collectionName)
+                .findOneAndDelete(
+                    {id: heroId},
+                    (err, result) => {
+                        err ? reject(err) : resolve(result);
+                    });
+            clientClose(client);
+        })))
     ))())
 
 };
